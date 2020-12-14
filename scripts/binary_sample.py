@@ -11,7 +11,7 @@ img_org = Image.open("zairyucard_omote.jpg")
 img_rgb = img_org.convert("RGB")
 pixels = img_rgb.load()
 
-# Manuscript image processing (set white=255,255,255 except for blackish colors)
+c
 c_max = 169
 for j in range(img_rgb.size[1]):
     for i in range(img_rgb.size[0]):
