@@ -5,7 +5,7 @@ import pyocr.builders
 tools = pyocr.get_available_tools()
 tool = tools[0]
  
-img_org = Image.open("sample.png")
+img_org = Image.open("zairyucard_omote.jpg")
  
 builder = pyocr.builders.TextBuilder()
 result = tool.image_to_string(img_org, lang="jpn", builder=builder)
