@@ -1,4 +1,37 @@
 #this code is refered to http://cedro3.com/ai/kmnist-vae/
+
+"""
+これを実行する前に、make_dataset.pyを実行してください。
+そうすると以下のようなディレクトリ構造になります。
+ETL9B
+├── 3a2b
+│   ├── ETL9B_7_3a2b_1.png
+│              .
+│              .
+│              .
+│   └── ETL9B_7_3a2b_7.png
+│
+├── 3a2c
+│   ├── ETL9B_7_3a2c_1.png
+│              .
+│              .
+│              .
+│   └── ETL9B_7_3a2c_9.png
+│
+└── 3a7c
+    ├── ETL9B_7_3a7c_1.png
+    │         .
+              .
+              .
+    └── ETL9B_7_3a7c_7.png
+    .
+    .
+    .
+
+その上で、'ETL9B'のディレクトリに移動してから実行してください。
+"""
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 import random
