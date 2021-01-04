@@ -1,0 +1,3 @@
+dropbox URL
+
+https://www.dropbox.com/s/b533wy4xtp5p0vx/ETL9B.traineddata?dl=0
