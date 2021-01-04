@@ -175,6 +175,7 @@ class utility(object):
                         stamp_data = list(f)
                     with open('result.txt','a',newline='\n') as f:
                         f.write(stamp_data[n])
+                        print(stamp_data[n])
                     n = n+1
                     break
 
