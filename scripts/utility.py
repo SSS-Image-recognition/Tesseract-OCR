@@ -186,79 +186,49 @@ class utility(object):
         return char
 
     def devide_DATA(self,DIR):
+        
+        #一文字画像の総数を取得
+        num_dataset = sum(os.path.isfile(os.path.join(DIR, subdir, f)) for subdir in os.listdir(DIR) for f in os.listdir(os.path.join(DIR, subdir)))
 
-        #学習データとテストデータの配分の割合。[0,1]の範囲。
-        train_test_ratio = 0.5
-
+        #データセットを格納する変数を定義
+        train_data = np.zeros((num_dataset,63,64))
+        train_label = num_dataset*['']
+        
 
         dirs = os.listdir(DIR)
 
-        first_loop1 = True
-        first_loop2 = True
         count = 0
 
-        for d in dirs:
-            count = count+1
-            print(f'\rloading ELT9B dataset {count}/{len(dirs)},  {d}', end='')
+        for d in range(len(dirs)):
+            
+            print(f'\rloading ELT9B dataset {d+1}/{len(dirs)},  {dirs[d]}', end='')
 
-            #Macが勝手に生成する'.DS_Store'というファイルがきたら処理をスキップ 
-            if d == '.DS_Store':
-                continue
-
-            os.chdir(d)
+            os.chdir(dirs[d])
 
             #全データセット
             data_list = os.listdir()
 
-            #各文字の画像数
-            n = len(data_list)
+            #学習データ(データセット全て)
+            train_list = data_list
 
-            #データセットをシャッフル
-            random.shuffle(data_list)
-            num_train = round(n * train_test_ratio)
-
-            #学習データ
-            train_list = data_list[0:num_train]
-
-            #テストデータ
-            test_list = data_list[num_train:-1]
-
-            
-
-            for i in train_list:
+            for i in range(len(train_list)):
                 
-                img = imageio.imread(i)
+                img = imageio.imread(train_list[i])
 
                 #(高さ,幅)の画像を(画像数,高さ,幅)の形にするために次元を追加
                 img = np.expand_dims(img,axis=0)
 
                 #ディレクトリ名の文字コードを文字に変換（str型）
-                label = self.JIS_decode(d)
+                label = self.JIS_decode(dirs[d])
 
-                if first_loop1:
-                    train_data = img
-                    train_label = label
-                    first_loop1 = False
-                else:
-                    train_data = np.append(train_data,img,axis=0)
-                    train_label = np.append(train_label,label)
+                train_data[count,:,:] = img
+                train_label[count] = label
 
-                
-            for i in test_list:
-                
-                img = imageio.imread(i)
-                label = self.JIS_decode(d)
-                if first_loop2:
-                    test_data = np.expand_dims(img,axis=0)
-                    test_label = label
-                    first_loop2 = False
-                else:
-                    test_data = np.append(test_data,np.expand_dims(img,axis=0),axis=0)
-                    test_label = np.append(test_label,label)
+                count = count + 1
             
             os.chdir('..')
 
-        return [train_data,test_data,train_label,test_label]
+        return [train_data,train_label]
 
 
 
