@@ -143,7 +143,6 @@ class utility(object):
         tools = pyocr.get_available_tools()
         tool = tools[0]
         
-        global stamp_list
         stamp_list=[]
         for i in circle:
             pt1 = (i[1],i[2])
